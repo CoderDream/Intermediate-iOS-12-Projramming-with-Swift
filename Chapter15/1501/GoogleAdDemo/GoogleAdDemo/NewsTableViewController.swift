@@ -7,14 +7,31 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class NewsTableViewController: UITableViewController {
+    
+    lazy var adBannerView: GADBannerView = {
+        let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
+        //adBannerView.adUnitID = "ca-app-pub-9126231954512363/2691564256"
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        adBannerView.delegate = self
+        adBannerView.rootViewController = self
+        
+        return adBannerView
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .automatic
+        
+        let adRequest = GADRequest()
+        adRequest.testDevices = [kGADSimulatorID, "71cab255ddfaf0fb693ccd382b883798b255bca4"]
+        adBannerView.load(GADRequest())
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -114,4 +131,17 @@ class NewsTableViewController: UITableViewController {
     }
     */
 
+}
+
+extension NewsTableViewController: GADBannerViewDelegate {
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        print("Banner loaded successfully")
+        tableView.tableHeaderView?.frame = bannerView.frame
+        tableView.tableHeaderView = bannerView
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        print("Fail to receive ads")
+        print(error)
+    }
 }
