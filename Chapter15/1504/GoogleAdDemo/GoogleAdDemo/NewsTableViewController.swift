@@ -13,8 +13,9 @@ class NewsTableViewController: UITableViewController {
     
     lazy var adBannerView: GADBannerView = {
         let adBannerView = GADBannerView(adSize: kGADAdSizeSmartBannerPortrait)
-        //adBannerView.adUnitID = "ca-app-pub-9126231954512363/2691564256"
-        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+        //adBannerView.adUnitID = "ca-app-pub-9126231954512363~2215694176" // Mine
+        
+        adBannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716" // Book
         adBannerView.delegate = self
         adBannerView.rootViewController = self
         
@@ -24,8 +25,8 @@ class NewsTableViewController: UITableViewController {
     var interstitial: GADInterstitial?
     
     private func createAndLoadInterstitial() -> GADInterstitial? {
-        interstitial = GADInterstitial(adUnitID: "ca-app-pub-9126231954512363/2503081745")
-        // interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910")
+        //interstitial = GADInterstitial(adUnitID: "ca-app-pub-9126231954512363/5823766696") // Mine
+        interstitial = GADInterstitial(adUnitID: "ca-app-pub-3940256099942544/4411468910") // Book
         
         guard let interstitial = interstitial else {
             return nil
